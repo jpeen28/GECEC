@@ -1,0 +1,103 @@
+.bg-tableau{
+    background-color: #fff;
+}
+/*CSS add user*/
+.add-user{
+    width: 50vw;
+    height: 73vh;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 25px;
+    margin-top: 30px;
+}
+.user{
+    display: flex;
+    justify-content: space-around;
+ padding-top: 20px;
+}
+.elmtuser{
+    display: flex;
+    flex-direction: column;
+}
+.user-details{
+    width: 20vw;
+    height: 30px;
+    padding-left: 10px;
+    font-size: 1rem;
+}
+.elmtnature{
+    display: flex;
+    flex-direction: column;
+  
+}
+.nature-user{
+    width: 45vw;
+    height: 50px;
+    box-shadow: gray 2px 2px 2px;
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color: rgb(241, 240, 240);
+    display: flex;
+    justify-content: space-around;
+    padding-top: 18px;
+}
+.nature-title{
+    margin-top: 10px;
+    margin-left: 32px;
+}
+.btn-add-user{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+#btn-reset{
+    width: 10vw;
+    height: 35px;
+    background-color: white;
+    border: 1px solid darkorange;
+    font-size: 1rem;
+    cursor: pointer;
+}
+#btn-sub{
+    width: 10vw;
+    height: 35px;
+    background-color: darkorange;
+    border: 1px solid darkorange;
+    font-size: 1rem;
+    cursor: pointer;
+}
+/*css historique oec*/
+.search-zone{
+    width:90vw;
+    height: 80px;
+    margin: 0 auto;
+    background-color:gainsboro;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+.btn-print{
+    width: 10vw;
+    height: 35px;
+    float: right;
+    font-size: 1rem;
+    background-color: darkorange;
+    color: white;
+    margin-bottom: 10px;
+}
+#btn-print{
+    font-size: 1rem;
+    background-color: darkorange;
+    color: white;
+}
+#btn-submit{
+    background-color: darkorange;
+    color: white;
+}
+.result-search{
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+}
