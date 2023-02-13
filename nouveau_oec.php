@@ -13,6 +13,8 @@ $regions = $stmt->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/tableau.css">
     <title>GECEC MINDDEVEL | Creer un centre</title>
 </head>
 
@@ -58,9 +60,9 @@ $regions = $stmt->fetchAll();
             <?php } ?>
             <?php if($_SESSION['user']['role']=="administrateur"){?>
             <li>
-                <a href="nouvea_oec.php">
+                <a href="nouveau_cec.php">
                     <i class='bx bx-plus'></i>
-                    <span class="links_name">Nouveau OEC </span>
+                    <span class="links_name">Nouveau OEC</span>
                 </a>
                 <!-- Tooltip -->
 
@@ -78,7 +80,6 @@ $regions = $stmt->fetchAll();
                 <span class="tooltip">Carte CTD</span>
             </li>
             <?php } ?>
-           
             <li>
                 <a href="historique_collecte.php">
                     <i class='bx bx-edit'></i>
@@ -88,7 +89,7 @@ $regions = $stmt->fetchAll();
 
                 <span class="tooltip">Edition</span>
             </li>
-           
+    
             <?php if($_SESSION['user']['role']=="administrateur" ){?>
             <li>
                 <a href="utilisateur.php">
@@ -124,10 +125,9 @@ $regions = $stmt->fetchAll();
             </div>
         </div>
     </div>
-    <div class="home-content">
+    <div class="home-content ">
         <div class="title-dashboard">NOMINATION OFFICIER D'ETAT CIVIL
-        <a href="historique_oec.php" title="Voir Historique"><img src="img/historique.png" class="img-next"></a>
-           
+            <a href="historique_oec.php" title="Voir Historique"><img src="img/historique.png" class="img-next"></a>
         </div>
         <div class="form-cec">
             <form action="nouveau_oec-check.php" method="post" class="newcec-form">
@@ -332,5 +332,19 @@ $regions = $stmt->fetchAll();
     }
 
     </script>
-</body> 
+    <script>
+        let btn = document.querySelector("#btn");
+        let sidebar = document.querySelector(".sidebar");
+        let searchbtn = document.querySelector(".bx-search");
+
+        btn.onclick = function() {
+            sidebar.classList.toggle("active");
+        }
+
+        searchbtn.onclick = function() {
+            sidebar.classList.toggle('active');
+        }
+    </script>
+</body>
+
 </html>

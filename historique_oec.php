@@ -186,7 +186,7 @@ $regions = $stmt->fetchAll();
             </form>
         </div>
         <button class='btn-print'>
-            <a href="fpdf/collecteoec.php" id='btn-print'>Imprimer</a>
+            <a href="fpdf/historique_oec.php" id='btn-print'>Imprimer</a>
         </button>
 
 
