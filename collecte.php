@@ -17,8 +17,10 @@ if($arr = $_SESSION['user']['code_cec']){
    
 } 
 if($cec = $_SESSION['user']['code']){
-    $stmt = $pdo->query("SELECT DISTINCT fr, localite,libelle, code,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region inner JOIN departements ON departements.code_region=region.code_region WHERE cec.code ='$cec'");
-    $loc = $stmt->fetchAll();
+    $stmt = $pdo->query("SELECT DISTINCT nom_region, localite,libelle,dept,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region inner JOIN departements ON departements.code_region=region.code_region WHERE cec.code ='NO1402';");
+    $stmt2 = $pdo->query("SELECT DISTINCT nom_region, localite,libelle,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region  WHERE cec.code ='NO1402';");
+    $loc = $stmt2->fetchAll();
+    $loc1 = $stmt->fetchAll();
 } 
 
 
@@ -170,32 +172,16 @@ if($cec = $_SESSION['user']['code']){
 			<div class="elmt-collecte">
 				<label for="">Region</label>
 				<select id="region" name="region" class="select-elmt"onchange="getDepartement(this.value)">
-                    <?php foreach ($regions as $region) { ?>
-                    <option value="<?= $region['code_region'] ?>"><?= $region['FR'] ?></option>
-                    <?php }?>
-                    <?php foreach ($depart as $departe) { ?>
-                    <option value="<?= $departe['code_region'] ?>"><?= $departe['code_region'] ?></option>
-                    <?php } ?>
-                    <?php foreach ($arron as $arrond) { ?>
-                    <option value="<?= $arrond['code_region'] ?>"><?= $arrond['FR'] ?></option>
-                    <?php } ?>
                     <?php foreach ($loc as $local) { ?>
-                    <option value="<?= $local['fr'] ?>"><?= $local['fr'] ?></option>
+                    <option value="<?= $local['nom_region'] ?>"><?= $local['nom_region'] ?></option>
                     <?php } ?>
 				</select>
 			</div>
 			<div class="elmt-collecte">
 				<label for="">Departement</label>
 				<select id="departement" name="departement"  class="select-elmt">
-                    <?php foreach ($depart as $departe) { ?>
-                        <option value="<?= $departe['code_dept'] ?>"><?= $departe['FR'] ?></option>
-                    <?php } ?>
-                    <?php foreach ($arron as $arrond) { ?>
-                        <option value="<?= $arrond['code_dept'] ?>"><?= $arrond['FR'] ?></option>
-                    <?php } ?>
-
-                    <?php foreach ($loc as $local) { ?>
-                        <option value="<?= $local['code'] ?>"><?= $local['code'] ?></option>
+                    <?php foreach ($loc1 as $local1) { ?>
+                        <option value="<?= $local1['dept'] ?>"><?= $local1['dept'] ?></option>
                     <?php } ?>
 				</select>
 			</div>
@@ -215,7 +201,7 @@ if($cec = $_SESSION['user']['code']){
 				</select>
 			</div>
 			<div class="elmt-collecte">
-				<label for="">Commune</label>
+				<label for="">Localite</label>
 				<select id="cec" name="cec"  class="select-elmt">
                 <?php foreach ($loc as $local) { ?>
                     <option value="<?= $local['code'] ?>"><?= $local['localite'] ?></option>

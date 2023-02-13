@@ -143,6 +143,7 @@ $sud_ou = $stmt->fetchColumn();
             </div>
         </div>
     </div>
+    <?php if($_SESSION['user']['role']=="administrateur" ){?>
     <div class="home-content">
         <div class="title-dashboard">TABLEAU DE STATISTIQUE DES COLLECTES 1 / 2
             <a href="dashboard2.php" title="Suivant"><img src="img/next.png" class="img-next"></a>
@@ -354,7 +355,7 @@ $sud_ou = $stmt->fetchColumn();
 
         </div>
     </div>
-
+    <?php } ?>
 
     <script>
         let btn = document.querySelector("#btn");
