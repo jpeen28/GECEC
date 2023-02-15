@@ -141,6 +141,7 @@ $sud_ou = $stmt->fetchColumn();
             </div>
         </div>
     </div>
+    <?php if($_SESSION['user']['role']=="administrateur"){?>
     <div class="home-content">
         <div class="title-dashboard">TABLEAU DE STATISTIQUE DES COLLECTES 2 / 2
             <a href="dashboard.php" title="Precedent"><img src="img/previous.png" class="img-next"></a>
@@ -351,7 +352,131 @@ $sud_ou = $stmt->fetchColumn();
 
         </div>
     </div>
+    <?php } ?>
 
+
+    <?php if($_SESSION['user']['role']=="collecteur"){?>
+    <div class="home-content">
+        <div class="title-dashboard">TABLEAU DE STATISTIQUE DES COLLECTES 2 / 2
+            <a href="dashboard.php" title="Precedent"><img src="img/previous.png" class="img-next"></a>
+        </div>
+           <div class="graphe-dashboard">
+                <div class="naissance">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        google.charts.load("current", {packages:["corechart"]});
+                        google.charts.setOnLoadCallback(drawChart);
+                        function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                        ['Region', 'Chiffre'],
+                        ['Adamaoua', <?php echo $ada;?>],         
+                        ]);
+
+                        var options = {
+                        title: 'Nombre de registre de Deces par Region',
+                        is3D: true,
+                        };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                            chart.draw(data, options);
+                        }
+                    </script>
+                    <div id="piechart_3d" style="width:48vw; height: 47vh;"></div>
+                </div>
+
+                <div class="act-naiss">
+
+                <?php  
+                    $stmt = $pdo->query("SELECT COALESCE  (sum(nbractdec),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='AD'");
+                    $ada = $stmt->fetchColumn();
+                ?>
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                    google.charts.load("current", {packages:["corechart"]});
+                    google.charts.setOnLoadCallback(drawChart);
+                    function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                        ['Regions', 'deces par region'],
+                        ['Adamaoua', <?php echo $ada;?>],
+                        ]);
+
+                        var options = {
+                        title: 'Nombre acte de Deces par Region',
+                        pieHole: 0.4,
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                        chart.draw(data, options);
+                    }
+                    </script>
+                    <div id="donutchart" style="width: 48vw; height: 47vh;"></div>
+                </div>
+
+           </div>
+           <div class="graphe-dashboard">
+            <div class="mariage">
+                    <?php  
+                        $stmt = $pdo->query("SELECT COALESCE  (sum(nbrregpara),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='AD'");
+                        $ada = $stmt->fetchColumn();
+                    ?>
+
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        google.charts.load('current', {'packages':['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        function drawChart() {
+
+                        var data = google.visualization.arrayToDataTable([
+                            ['Regions', 'paraphe par region'],
+                            ['Adamaoua', <?php echo $ada;?>],
+                        ]);
+
+                        var options = {
+                        pieHole: 0.5,
+                        pieSliceTextStyle: {
+                            color: 'black',
+                        },
+                        title:'Nombre de Registre Paraphe par region'
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+                        chart.draw(data, options);
+                    }
+                    </script>
+                    <div id="donut_single" style="width:48vw; height: 49vh;"></div>
+            </div>
+            <div class="acte-mar">
+                    <?php  
+                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbrregclot),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='AD'");
+                       $ada = $stmt->fetchColumn();
+                    ?>
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                    google.charts.load("current", {packages:["corechart"]});
+                    google.charts.setOnLoadCallback(drawChart);
+                    function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Regions', 'Mariage par region'],
+                            ['Adamaoua', <?php echo $ada;?>],
+                        ]);
+
+                        var options = {
+                            title: 'Nombre acte de Mariage par Region',
+                            pieStartAngle: 100,
+                        };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                            chart.draw(data, options);
+                        }
+                        </script>
+                        <div id="piechart" style="width:48vw; height:49vh;"></div>
+            </div>
+           </div>
+
+        </div>
+    </div>
+    <?php } ?>
 
     <script>
         let btn = document.querySelector("#btn");

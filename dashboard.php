@@ -356,7 +356,138 @@ $sud_ou = $stmt->fetchColumn();
         </div>
     </div>
     <?php } ?>
+ 
+    <?php if($_SESSION['user']['role']=="collecteur" ){?>    
+    <div class="home-content">
+        <?php if($cec = $_SESSION['user']['code']){
+            $stmt = $pdo->query("SELECT COALESCE  (sum(nbrregnais),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE cec.code='$cec'");
+            $ada = $stmt->fetchColumn();
 
+            $stmt = $pdo->query("SELECT COALESCE  (sum(nbractnai),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE cec.code='$cec'");
+            $nai = $stmt->fetchColumn();
+
+            $stmt2 = $pdo->query("SELECT DISTINCT nom_region, localite,libelle,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region  WHERE cec.code ='$cec'");
+            $loc = $stmt2->fetchAll();
+            } 
+        ?>
+        <div class="title-dashboard">TABLEAU DE STATISTIQUE DES COLLECTES <?php $stmt = $pdo->query("SELECT DISTINCT localite FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE cec.code ='$cec'"); $zu = $stmt->fetchColumn();print_r($zu);?> 1 / 2
+            <a href="dashboard2.php" title="Suivant"><img src="img/next.png" class="img-next"></a>
+        </div>
+        
+           <div class="graphe-dashboard">
+                <div class="naissance">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        google.charts.load("current", {packages:["corechart"]});
+                        google.charts.setOnLoadCallback(drawChart);
+                        function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                           
+                        ['Region','Registre de Naissance'],
+                        ["<?php $stmt = $pdo->query("SELECT DISTINCT localite FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE cec.code ='$cec'"); $zu = $stmt->fetchColumn();print_r($zu);?>", <?php echo $ada;?>],     
+                        ]);
+
+                        var options = {
+                        title: 'REGISTRE DE NAISSANCE',
+                        is3D: true,
+                        };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                            chart.draw(data, options);
+                        }
+                    </script>
+                    <div id="piechart_3d" style="width:48vw; height: 47vh;"></div>
+                </div>
+
+                <div class="act-naiss">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                    google.charts.load("current", {packages:["corechart"]});
+                    google.charts.setOnLoadCallback(drawChart);
+                    function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                        ['Regions', 'Naissance par region'],
+                        ['<?php $stmt = $pdo->query("SELECT DISTINCT localite FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE cec.code ='$cec'"); $zu = $stmt->fetchColumn();print_r($zu);?>', <?php echo $nai;?>],
+                     
+                        ]);
+
+                        var options = {
+                        title: 'Nombre acte de Naissance par Region',
+                        pieHole: 0.4,
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                        chart.draw(data, options);
+                    }
+                    </script>
+                    <div id="donutchart" style="width: 48vw; height: 47vh;"></div>
+                </div>
+
+           </div>
+           <div class="graphe-dashboard">
+            <div class="mariage">
+                    <?php  
+                        $stmt = $pdo->query("SELECT COALESCE  (sum(nbrregmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE cec.code='$cec'");
+                        $mar = $stmt->fetchColumn();
+                    ?>
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        google.charts.load('current', {'packages':['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        function drawChart() {
+
+                        var data = google.visualization.arrayToDataTable([
+                            ['Regions', 'Mariage par region'],
+                            ['<?php $stmt = $pdo->query("SELECT DISTINCT localite FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE cec.code ='$cec'"); $zu = $stmt->fetchColumn();print_r($zu);?>', <?php echo $mar;?>],
+                        ]);
+
+                        var options = {
+                        pieHole: 0.5,
+                        pieSliceTextStyle: {
+                            color: 'black',
+                        },
+                        title:'Nombre de Registre de Mariage par region'
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+                        chart.draw(data, options);
+                    }
+                    </script>
+                    <div id="donut_single" style="width:48vw; height: 49vh;"></div>
+            </div>
+            <div class="acte-mar">
+                    <?php  
+                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE cec.code='$cec'");
+                       $actmar = $stmt->fetchColumn();  
+                    ?>
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                    google.charts.load("current", {packages:["corechart"]});
+                    google.charts.setOnLoadCallback(drawChart);
+                    function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Regions', 'Mariage par region'],
+                            ['<?php $stmt = $pdo->query("SELECT DISTINCT localite FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE cec.code ='$cec'"); $zu = $stmt->fetchColumn();print_r($zu);?>', <?php echo $actmar;?>],
+                          
+                        ]);
+
+                        var options = {
+                            title: 'Nombre acte de Mariage par Region',
+                            pieStartAngle: 100,
+                        };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                            chart.draw(data, options);
+                        }
+                        </script>
+                        <div id="piechart" style="width:48vw; height:49vh;"></div>
+            </div>
+           </div>
+
+        </div>
+    </div>
+    <?php } ?>
     <script>
         let btn = document.querySelector("#btn");
         let sidebar = document.querySelector(".sidebar");

@@ -6,11 +6,11 @@ $stmt = $pdo->query("SELECT * FROM region");
 $regions = $stmt->fetchAll();
 
 $bdd = new PDO('mysql:host=localhost;dbname=minddevel;', 'root', '');
-$sql = $bdd->query("SELECT FR, datecreation, cec.code, region.code_region, localite, nbrregnais, nbrregmar, nbrregdec, nbrregpara, nbrregclot, nbractmar, nbractnai, nbractdec, fonctionnel, commentaire FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code where true");
+$sql = $bdd->query("SELECT nom_region, datecreation, cec.code, region.code_region, localite, nbrregnais, nbrregmar, nbrregdec, nbrregpara, nbrregclot, nbractmar, nbractnai, nbractdec, fonctionnel, commentaire FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code where true");
 
 if(isset($_GET['region'])){
     $region = htmlspecialchars($_GET['region']);
-    $sql = $bdd->query("SELECT datecreation, cec.code, region.code_region, localite, nbrregnais, nbrregmar, nbrregdec, nbrregpara, nbrregclot, nbractmar, nbractnai, nbractdec, fonctionnel, commentaire FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code  WHERE region.code_region = '$region' ");
+    $sql = $bdd->query("SELECT statistique.id, datecreation, cec.code, region.code_region, localite, nbrregnais, nbrregmar, nbrregdec, nbrregpara, nbrregclot, nbractmar, nbractnai, nbractdec, fonctionnel, commentaire FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code  WHERE region.code_region = '$region' ");
 }
 
 if(isset($_GET['localite'])){
@@ -54,7 +54,7 @@ $somme8 = $stmt->fetchColumn();
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/tableau.css">
-    <title>GECEC MINDDEVEL | Utilisateurs</title>
+    <title>GECEC MINDDEVEL | Collecte</title>
 </head>
 
 <body class="img js-fullheight" style="background-image: url(img/img1.jpg);">
@@ -165,12 +165,16 @@ $somme8 = $stmt->fetchColumn();
         </div>
     </div>
     <div class="home-content ">
-        <div class="title-dashboard">HISTORIQUES DES COLLECTES REGION  <?php $stmt = $pdo->query("SELECT DISTINCT FR FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'"); $zu = $stmt->fetchColumn();print_r($zu);?> 
+        <div class="title-dashboard">HISTORIQUES DES COLLECTES REGION  <?php $stmt = $pdo->query("SELECT DISTINCT nom_region FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'"); $zu = $stmt->fetchColumn();print_r($zu);?> 
         </div>
+        <button class='btn-print'>
+            <a href="fpdf/regionale.php?region=<?= $region ?>" id='btn-print'>Imprimer</a>
+        </button>
         <div class="Scroll">
             <table class="table table-striped bg-tableau ">
                 <thead>
                     <tr>
+                    <th scope="col">#</th>
                         <th scope="col">Date Enregistrement</th>
                         <th scope="col">Localite</th>
                         <th scope="col">Code</th>
@@ -184,7 +188,7 @@ $somme8 = $stmt->fetchColumn();
                         <th scope="col">Acte Deces</th>
                         <th scope="col">Observation</th>
                         <th scope="col">Etat</th>
-                        <th scope="col">Modifier / Supprimer</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -193,6 +197,7 @@ $somme8 = $stmt->fetchColumn();
                         while($user = $sql->fetch()){
                     ?>
                         <tr>
+                            <td><?= $user['id'];?></td>
                             <td><?= $user['datecreation'];?></td>
                             <td><?= $user['localite'];?></td>
                             <td><?= $user['code'];?></td>
@@ -207,9 +212,8 @@ $somme8 = $stmt->fetchColumn();
                             <td><?= $user['commentaire'];?></td>
                             <td><?= $user['fonctionnel'];?></td>
                             <td class="action-tab">
-                                <a href="update.php?code=<?= $user['code'] ?>" ><img src="./img/info.png" style="width:20px" title="Details"></a>
-                                <a onclick="return confirm('Voulez vous vraiment supprimer cette information ?')" href="supprimer.php"><img src="./img/delete.png" style="width:20px;" title="supprimer"></a>
-                                <a href="modifier.php?id=<?= $user['id'] ?>" ><img src="./img/pen.png" style="width:20px" title="modifier"></a>
+                                <a href="mise_a_jour.php?code=<?= $user['code'] ?>" ><img src="./img/info.png" style="width:20px" title="Details"></a>
+                                <a onclick="return confirm('Voulez vous vraiment supprimer cette information ?')" href="supprimer.php?id=<?= $user['id'] ?>"><img src="./img/delete.png" style="width:20px;" title="supprimer"></a>
                             </td>
                         </tr>
                     <?php

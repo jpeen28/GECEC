@@ -17,8 +17,8 @@ if($arr = $_SESSION['user']['code_cec']){
    
 } 
 if($cec = $_SESSION['user']['code']){
-    $stmt = $pdo->query("SELECT DISTINCT nom_region, localite,libelle,dept,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region inner JOIN departements ON departements.code_region=region.code_region WHERE cec.code ='NO1402';");
-    $stmt2 = $pdo->query("SELECT DISTINCT nom_region, localite,libelle,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region  WHERE cec.code ='NO1402';");
+    $stmt = $pdo->query("SELECT DISTINCT nom_region, localite,libelle,dept,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region inner JOIN departements ON departements.code_region=region.code_region WHERE cec.code ='$cec'");
+    $stmt2 = $pdo->query("SELECT DISTINCT nom_region, localite,libelle,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region  WHERE cec.code ='$cec'");
     $loc = $stmt2->fetchAll();
     $loc1 = $stmt->fetchAll();
 } 
