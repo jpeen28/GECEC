@@ -15,7 +15,7 @@ $regions = $stmt->fetchAll();
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/tableau.css">
-    <title>GECEC MINDDEVEL | Utilisateurs</title>
+    <title>GECEC MINDDEVEL | Nouveau CEC</title>
 </head>
 
 <body class="img js-fullheight" style="background-image: url(img/img1.jpg);">
@@ -60,7 +60,7 @@ $regions = $stmt->fetchAll();
             <?php } ?>
             <?php if($_SESSION['user']['role']=="administrateur"){?>
             <li>
-                <a href="nouveau_cec.php">
+                <a href="nouveau_oec.php">
                     <i class='bx bx-plus'></i>
                     <span class="links_name">Nouveau OEC</span>
                 </a>

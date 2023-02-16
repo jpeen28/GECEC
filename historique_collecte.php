@@ -240,10 +240,6 @@ if(isset($_GET['region'])){
         </div> 
     </div>
 <?php }?>
-
-
-
-
     <div class="home-content ">
     <?php if($_SESSION['user']['role']=="administrateur")
     $bdd = new PDO('mysql:host=localhost;dbname=minddevel;', 'root', '');

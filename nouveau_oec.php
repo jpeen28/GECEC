@@ -137,7 +137,7 @@ $regions = $stmt->fetchAll();
                         <select name="region" id="region" onchange="getDepartement(this.value)" required class="select-cec">
                             <option value disabled selected>Selectionnez Region</option>
                             <?php foreach ($regions as $region) { ?>
-                                <option value="<?= $region['code_region'] ?>"><?= $region['FR'] ?></option>
+                                <option value="<?= $region['code_region'] ?>"><?= $region['nom_region'] ?></option>
                             <?php }?>
                         </select>
                     </div>

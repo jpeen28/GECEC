@@ -213,18 +213,25 @@ $regions = $stmt->fetchAll();
                 </thead>
                 <tbody>
                     <?php
+                       
                         if($sql->rowCount() > 0){
                         while($user = $sql->fetch()){
                     ?>
                         <tr>
                         <td><?= $user['id'];?></td>
-                        <td><?=   $user['region'];?></td>
+                        <td><?=  $user['region'];?></td>
                         <td><?= $user['departement'];?></td>
                         <td><?= $user['arrondissement'];?></td>
                         <td><?= $user['localite'];?></td>
                         <td><?= $user['nomoec'];?></td>
                         <td><?= $user['datenaissance'];?></td>
-                        <td><?= $user['age'];?></td>
+                        <?php
+                            $dateNaissance = $user['datenaissance'];
+                            $aujourdhui = date("Y-m-d");
+                            $diff = date_diff(date_create($dateNaissance), date_create($aujourdhui));
+                            $age=($diff->format('%y')); 
+                        ?>
+                        <td><?=$age. 'ans'?></td>
                         <td><?= $user['sexe'];?></td>
                         <td><?= $user['lieunaissance'];?></td>
                         <td><?= $user['diplome'];?></td>
