@@ -240,60 +240,7 @@ $centre = $stmt->fetchColumn();
                     }
                     </script>
                     <div id="donut_single" style="width:48vw; height: 49vh;"></div>
-            </div>
-            <div class="acte-mar">
-                    <?php  
-                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='AD'");
-                       $ada = $stmt->fetchColumn();
-                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='CE'");
-                       $centre = $stmt->fetchColumn();
-                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='ES'");
-                       $est = $stmt->fetchColumn();
-                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='EX'");
-                       $ext = $stmt->fetchColumn();
-                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='LT'");
-                       $litto = $stmt->fetchColumn();
-                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='NO'");
-                       $nord = $stmt->fetchColumn();
-                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='NW'");
-                       $nord_ou = $stmt->fetchColumn();
-                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='OU'");
-                       $ouest = $stmt->fetchColumn();
-                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='SU'");
-                       $sud = $stmt->fetchColumn();
-                       $stmt = $pdo->query("SELECT COALESCE  (sum(nbractmar),0) FROM statistique INNER JOIN cec ON statistique.code=cec.code WHERE code_region='SW'");
-                       $sud_ou = $stmt->fetchColumn();
-                    ?>
-                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                    <script type="text/javascript">
-                    google.charts.load("current", {packages:["corechart"]});
-                    google.charts.setOnLoadCallback(drawChart);
-                    function drawChart() {
-                        var data = google.visualization.arrayToDataTable([
-                            ['Regions', 'Mariage par region'],
-                            ['Adamaoua', <?php echo $ada;?>],
-                            ['Centre', <?php echo $centre;?>],
-                            ['Est', <?php echo $est;?>],
-                            ['Extreme Nord', <?php echo $ext;?>],
-                            ['Littoral', <?php echo $litto;?>],
-                            ['Nord', <?php echo $nord;?>],
-                            ['Nord-Ouest', <?php echo $nord_ou;?>],
-                            ['Ouest', <?php echo $ouest;?>],
-                            ['Sud', <?php echo $sud;?>],
-                            ['Sud-Ouest', <?php echo $sud_ou;?>],
-                        ]);
-
-                        var options = {
-                            title: 'Nombre acte de Mariage par Region',
-                            pieStartAngle: 100,
-                        };
-
-                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-                            chart.draw(data, options);
-                        }
-                        </script>
-                        <div id="piechart" style="width:48vw; height:49vh;"></div>
-            </div>
+                </div>
            </div>
 
         </div>

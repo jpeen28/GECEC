@@ -158,7 +158,7 @@ $regions = $stmt->fetchAll();
                     <select name="region" id="region"  onChange="this.form.submit();">
                         <option value disabled selected>Selectionner Region</option>
                         <?php foreach ($regions as $region) { ?>
-                                <option value="<?= $region['code_region'] ?>"><?= $region['FR'] ?></option>
+                                <option value="<?= $region['code_region'] ?>"><?= $region['code_region'] ?></option>
                             <?php }?>
                     </select>
                         <select id="input-cec" name="sexe" onChange="this.form.submit();">
@@ -240,8 +240,8 @@ $regions = $stmt->fetchAll();
                         <td><?= $user['arrete'];?></td>
                         <td>
                             <a href="fpdf/ficheoec.php?id=<?= $user['id'] ?>" ><img src="./img/printer.png" style="width:20px" title="imprimer"></a>
-                            <a href="modifier.php?id=<?= $user['id'] ?>" ><img src="./img/pen.png" style="width:20px" title="modifier"></a>
-                            <a onclick="return confirm('Voulez vous vraiment supprimer cette information ?')" href="supprimer.php?id=<?= $user['id'] ?>"><img src="./img/delete.png" style="width:20px;" title="supprimer"></a>
+                            <a href="delete.php?id=<?= $user['id'] ?>" ><img src="./img/delete.png" style="width:20px" title="supprimer"></a>
+                            
                         </td>
                         </tr>
                     <?php

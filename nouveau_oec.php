@@ -147,55 +147,49 @@ $regions = $stmt->fetchAll();
                             <option value disabled selected>Selectionnez Departement</option>
                         </select>
                     </div>
-                </div>
-                <div class="newcec-content">
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Arrondissement</label>
                         <select name="ctd" id="ctd" onchange="getCec(this.value)" required class="select-cec">
                             <option value disabled selected>Selectionnez Arrondissement</option>
                         </select>
                     </div>
+
+                </div>
+                <div class="newcec-content">
+                    
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Localite</label>
                         <select name="cec" id="cec" onchange="getNumero(this.value)" required class="select-cec">
                             <option value disabled selected>Selectionnez Localite</option>
                         </select>
                     </div>
-                </div>
-                <div class="newcec-content">
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Nom officier</label>
-                        <input type="text" id="input-cec" name="nomoec" >
+                        <input type="text" id="input-cec" name="nomoec" required>
                     </div>
-                        <?php $age = time(); $date = date("d/m/Y", $age ); {?>
-                        <input type="text" id="input-cec" name="age" value="<?= $date ?>" hidden>
-                        <?php } ?>
                     <div class="newcec-elmt">
                         <label for="input-cec" class="cec-elm-desc">Sexe</label>
-                        <select id="input-cec" name="sexe">
+                        <select id="input-cec" name="sexe" required>
                             <option value disabled selected>Sexe</option>
                             <option value="Masculin">Masculin</option>
                             <option value="Feminin">Feminin</option>
                         </select>
                     </div>
-                    
+
                 </div>
+               
                 <div class="newcec-content">
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Date de Naissance</label>
-                        <input type="date" id="input-cec" name="datenaissance" >
+                        <input type="date" id="input-cec" name="datenaissance" required>
                     </div>
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Lieu de Naissance</label>
-                        <input type="text" id="input-cec" name="lieunaissance" >
+                        <input type="text" id="input-cec" name="lieunaissance" required>
                     </div>
-                    
-                    
-                </div>
-                <div class="newcec-content">
                     <div class="newcec-elmt">
                         <label for="input-cec" class="cec-elm-desc">Diplome</label>
-                        <select id="input-cec" name="diplome">
+                        <select id="input-cec" name="diplome" required>
                             <option value disabled selected>Diplome</option>
                             <option value="BEPC">BEPC</option>
                             <option value="PROBATOIRE">PROBATOIRE</option>
@@ -206,28 +200,27 @@ $regions = $stmt->fetchAll();
                             <option value="DOCTORAT">DOCTORAT</option>
                         </select>
                     </div>
+                    
+                </div>
+                <div class="newcec-content">
+                 
                     <div class="newcec-elmt">
                         <label for="input-cec" class="cec-elm-desc">Poste</label>
-                        <select id="input-cec" name="poste">
+                        <select id="input-cec" name="poste" required>
                             <option value disabled selected>Poste</option>
                             <option value="Officier">Officier</option>
                             <option value="Secretaire">Secretaire</option>
                         </select>
                     </div>
-                </div>
-                <div class="newcec-content">
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Reference</label>
-                        <input type="text" id="input-cec" name="reference" >
+                        <input type="text" id="input-cec" name="reference"required >
                     </div>
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Arrete</label>
-                        <input type="file" id="input-cec" name="arrete" >
+                        <input type="file" id="input-cec" name="arrete" required>
                     </div>
-                    
-                    
                 </div>
-
                 <div class="newcec-btn">
                     <input type="reset" value="Annuler" id="cec-reset">
                     <input type="submit" value="Sauvegarder" id="cec-subm" onclick="return confirm('Voulez vous vraiment sauvegarder cette information ?')">

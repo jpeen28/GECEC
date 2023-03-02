@@ -26,7 +26,7 @@
         $sthcec->bindParam(':centre',$nomcec);
        
         $sthcec->execute();
-        header("Location:nouveau.php");
+        header("Location:nouveau_cec-check.php");
     }
     catch(PDOException $e){
         echo 'Impossible de traiter les données. Erreur : '.$e->getMessage();
@@ -60,7 +60,7 @@
         $sth->bindParam(':arrete',$piece);
        
         $sth->execute();
-        header("Location:nouveau.php");
+        header("Location:nouveau_cec-check.php");
     }
     catch(PDOException $e){
         echo 'Impossible de traiter les données. Erreur : '.$e->getMessage();

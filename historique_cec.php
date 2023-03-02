@@ -102,7 +102,7 @@ $regions = $stmt->fetchAll();
             </li>
             <?php } ?>
             <li>
-                <a href="historique_cec.php">
+                <a href="historique_collecte.php">
                     <i class='bx bx-edit'></i>
                     <span class="links_name">Edition</span>
                 </a>
@@ -161,7 +161,7 @@ $regions = $stmt->fetchAll();
                     <select name="region" id="region"  onChange="this.form.submit();">
                         <option value disabled selected>Selectionner Region</option>
                         <?php foreach ($regions as $region) { ?>
-                                <option value="<?= $region['code_region'] ?>"><?= $region['FR'] ?></option>
+                                <option value="<?= $region['code_region'] ?>"><?= $region['nom_region'] ?></option>
                             <?php }?>
                     </select>
                 </div>
@@ -192,7 +192,7 @@ $regions = $stmt->fetchAll();
                     <th scope="col">Coordonnees</th>
                     <th scope="col">Etat</th>
                     <th scope="col">Arrete</th>
-                    <th scope="col">Modifier / Supprimer</th>
+                    <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -213,8 +213,7 @@ $regions = $stmt->fetchAll();
                         <td><?= $user['pieces'];?></td>
                         <td>
                             <a href="details-cec.php?id=<?= $user['id'] ?>" ><img src="./img/info.png" style="width:20px" title="imprimer"></a>
-                            <a href="modifier.php?id=<?= $user['id'] ?>" ><img src="./img/pen.png" style="width:20px" title="modifier"></a>
-                            <a onclick="return confirm('Voulez vous vraiment supprimer cette information ?')" href="supprimer.php?id=<?= $user['id'] ?>"><img src="./img/delete.png" style="width:20px;" title="supprimer"></a>
+                            <a onclick="return confirm('Voulez vous vraiment supprimer cette information ?')" href="supprimer.php?id=<?= $user['id'] ?>" ><img src="./img/delete.png" style="width:20px" title="imprimer"></a>
                         </td>
                         </tr>
                     <?php

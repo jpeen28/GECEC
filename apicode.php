@@ -10,7 +10,7 @@
         echo"<option value disabled selected >Selectionner un departement</option>";
 
         foreach($departements as $departement) {
-            echo "<option value='". $departement["code_dept"] ."'>". $departement["dept"] ."</option>";
+            echo "<option value='". $departement["codedept"] ."'>". $departement["dept"] ."</option>";
         }
     }
 
@@ -18,7 +18,7 @@
         $code_dept = $_POST['code_dept'];
         $code_region = $_POST['region'];
         
-        $stmt = $pdo->prepare("SELECT * FROM ctd WHERE code_region=:region AND code_dept=:code_dept");
+        $stmt = $pdo->prepare("SELECT * FROM ctd WHERE code_region=:region AND codedept=:code_dept");
         $stmt->execute(['region' => $code_region , 'code_dept' => $code_dept ]);
         $ctds = $stmt->fetchAll();
 

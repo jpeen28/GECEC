@@ -3,6 +3,7 @@
     
     $code = $_POST["code"];
     $etat = $_POST["etat"];
+    $dept = $_POST["departement"];
     $regnaissance = $_POST["regnaissance"];
     $regmariage = $_POST["regmariage"];
     $regdeces = $_POST["regdeces"];
@@ -20,8 +21,8 @@
         $dbco = new PDO("mysql:host=$serveur;dbname=$dbname",$user,$pass);
         $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sthcec = $dbco->prepare("
-            INSERT INTO statistique(code, fonctionnel, nbrregnais, nbrregmar, nbrregdec, nbrregpara, nbrregclot, nbractnai, nbractmar, nbractdec, commentaire)
-            VALUES( :code, :etat, :regnaissance, :regmariage, :regdeces, :regparaphe, :regclot, :nbractnai, :nbractmar, :nbractdec, :observation)"
+            INSERT INTO statistique(code, fonctionnel, nbrregnais, nbrregmar, nbrregdec, nbrregpara, nbrregclot, nbractnai, nbractmar, nbractdec, commentaire, codedept)
+            VALUES( :code, :etat, :regnaissance, :regmariage, :regdeces, :regparaphe, :regclot, :nbractnai, :nbractmar, :nbractdec, :observation, :departement)"
         );
 
 
@@ -36,10 +37,7 @@
         $sthcec->bindParam(':nbractmar',$actmar);
         $sthcec->bindParam(':nbractdec',$actdec);
         $sthcec->bindParam(':observation',$observation);
-      
-      
-        
-    
+        $sthcec->bindParam(':departement',$dept);
         $sthcec->execute();
         header("Location:collecte.php");
     }

@@ -17,7 +17,7 @@ if($arr = $_SESSION['user']['code_cec']){
    
 } 
 if($cec = $_SESSION['user']['code']){
-    $stmt = $pdo->query("SELECT DISTINCT nom_region, localite,libelle,dept,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region inner JOIN departements ON departements.code_region=region.code_region WHERE cec.code ='$cec'");
+    $stmt = $pdo->query("SELECT DISTINCT nom_region, codedept, localite,libelle,dept,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region inner JOIN departements ON departements.code_region=region.code_region WHERE cec.code ='$cec'");
     $stmt2 = $pdo->query("SELECT DISTINCT nom_region, localite,libelle,code FROM cec INNER JOIN  region ON cec.code_region=region.code_region  WHERE cec.code ='$cec'");
     $loc = $stmt2->fetchAll();
     $loc1 = $stmt->fetchAll();
@@ -156,7 +156,7 @@ if($cec = $_SESSION['user']['code']){
             $codec = $stmt->fetchAll();
         ?>
 			<div class="elmt-collecte">
-				<label for="">Code Region</label>
+				<label for="">Code CEC</label>
 				<input id="code" name="code" class="select-elmt" readonly value="<?php print_r($codec['0']['code']) ?>">
 			</div>
 			<div class="elmt-collecte">
@@ -178,10 +178,10 @@ if($cec = $_SESSION['user']['code']){
 				</select>
 			</div>
 			<div class="elmt-collecte">
-				<label for="">Departement</label>
-				<select id="departement" name="departement"  class="select-elmt">
+				<label for="">Département</label>
+				<select id="departement"  onchange="getCtd(this.value)" name="departement"  class="select-elmt">
                     <?php foreach ($loc1 as $local1) { ?>
-                        <option value="<?= $local1['dept'] ?>"><?= $local1['dept'] ?></option>
+                        <option value="<?= $local1['codedept'] ?>"><?= $local1['dept'] ?></option>
                     <?php } ?>
 				</select>
 			</div>
@@ -201,7 +201,7 @@ if($cec = $_SESSION['user']['code']){
 				</select>
 			</div>
 			<div class="elmt-collecte">
-				<label for="">Localite</label>
+				<label for="">Localité</label>
 				<select id="cec" name="cec"  class="select-elmt">
                 <?php foreach ($loc as $local) { ?>
                     <option value="<?= $local['code'] ?>"><?= $local['localite'] ?></option>
@@ -224,7 +224,7 @@ if($cec = $_SESSION['user']['code']){
 		</div>
 		<div class="collecte">
 			<div class="elmt-collecte">
-				<label for="">Registre Deces</label>
+				<label for="">Registre Décès</label>
 				<input type="text"  name="regdeces" id="regdeces"onchange="getTotal()" required class="select-elmt">
 			</div>
 			<div class="elmt-collecte">
@@ -234,12 +234,12 @@ if($cec = $_SESSION['user']['code']){
 		</div>
         <div class="collecte">
 			<div class="elmt-collecte">
-				<label for="">Registre Paraphe</label>
+				<label for="">Registre Paraphé</label>
 				<input id="regparaphe" name="regparaphe" required class="select-elmt">
 			</div>
 			<div class="elmt-collecte">
-				<label for="">Registre Cloture</label>
-				<input id="regcloture" name="regclot"class="select-elmt">
+				<label for="">Registre Cloturé</label>
+				<input id="regcloture" name="regclot"class="select-elmt" required>
 			</div>
 		</div>
 	  </div>
@@ -247,17 +247,17 @@ if($cec = $_SESSION['user']['code']){
 	  	<div class="collecte">
 			<div class="elmt-collecte">
 				<label for="">Acte Naissance</label>
-				<input id="actnaissance" name="nbractnai" class="select-elmt">
+				<input id="actnaissance" name="nbractnai" class="select-elmt" required>
 			</div>
 			<div class="elmt-collecte">
 				<label for="">Acte Mariage</label>
-				<input id="actmariage" name="nbractmar"class="select-elmt">
+				<input id="actmariage" name="nbractmar"class="select-elmt" required>
 			</div>
 		</div>
 		<div id="actdec">
 			<div class="elmt-collecte">
 				<label for="">Acte Deces</label>
-				<input id="actdeces" name="nbractdec" class="select-elmt">
+				<input id="actdeces" name="nbractdec" class="select-elmt" required>
 			</div>
 		</div>
 	  </div>

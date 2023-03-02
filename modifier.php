@@ -9,14 +9,8 @@ $bdd = new PDO('mysql:host=localhost;dbname=minddevel;', 'root', '');
 $sql = $bdd->query("SELECT nom_region, datecreation, cec.code, region.code_region, localite, nbrregnais, nbrregmar, nbrregdec, nbrregpara, nbrregclot, nbractmar, nbractnai, nbractdec, fonctionnel, commentaire FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code where true");
 
 if(isset($_GET['region'])){
-    $region = htmlspecialchars($_GET['region']);
-    $sql = $bdd->query("SELECT statistique.id, datecreation, cec.code, region.code_region, localite, nbrregnais, nbrregmar, nbrregdec, nbrregpara, nbrregclot, nbractmar, nbractnai, nbractdec, fonctionnel, commentaire FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code  WHERE region.code_region = '$region' ");
-}
-
-if(isset($_GET['localite'])){
-    $etat = htmlspecialchars($_GET['localite']);
-    $sql = $bdd->query("SELECT * FROM statistique INNER JOIN cec ON statistique.code=cec.code where cec.localite  ='$etat'");
-}
+$region = htmlspecialchars($_GET['region']);
+$sql = $bdd->query("SELECT statistique.id, datecreation, cec.code, region.code_region, localite, nbrregnais, nbrregmar, nbrregdec, nbrregpara, nbrregclot, nbractmar, nbractnai, nbractdec, fonctionnel, commentaire FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code  WHERE region.code_region = '$region' ");
 $stmt = $pdo->query("SELECT SUM(nbrregnais) FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'");
 $somme = $stmt->fetchColumn();
 
@@ -41,6 +35,8 @@ $somme6 = $stmt->fetchColumn();
 
 $stmt = $pdo->query("SELECT SUM(nbractdec) FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'");
 $somme8 = $stmt->fetchColumn();
+}
+
 
 ?> 
 <!DOCTYPE html>
@@ -167,8 +163,32 @@ $somme8 = $stmt->fetchColumn();
     <div class="home-content ">
         <div class="title-dashboard">HISTORIQUES DES COLLECTES REGION  <?php $stmt = $pdo->query("SELECT DISTINCT nom_region FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'"); $zu = $stmt->fetchColumn();print_r($zu);?> 
         </div>
+        <div class="search-zone">
+            <form action="" class="search-oec" method='get'>
+                <div class="form-search">
+                    <select name="etat" id="input-cec"  onChange="this.form.submit();">
+                        <option value disabled selected>Etat du Centre</option>
+                        <option value="Fonctionnel">Fonctionnel</option>
+                        <option value="Non Fonctionnel">Non Fonctionnel</option>
+                    </select>
+                    <select name="region" id="region"  onChange="this.form.submit();">
+                        <option value disabled selected>Selectionner Region</option>
+                        <?php foreach ($regions as $region) { ?>
+                                <option value="<?= $region['code_region'] ?>"><?= $region['nom_region'] ?></option>
+                            <?php }?>
+                    </select>
+                </div>
+            </form>
+            <form action="" class="search-oec" method='get'>
+                <div class="form-search">
+                    <input id="input-cec" name="code" onChange="this.form.submit();" placeholder="Code du centre">
+                    <input id="input-cec" name="nomcentre" onChange="this.form.submit();" placeholder="Nom du centre">
+                </div>
+            </form>
+        </div>
+
         <button class='btn-print'>
-            <a href="fpdf/regionale.php?region=<?= $region ?>" id='btn-print'>Imprimer</a>
+            <a href="fpdf/regionale.php?region=<?= $region?>" id='btn-print'>Imprimer</a>
         </button>
         <div class="Scroll">
             <table class="table table-striped bg-tableau ">
@@ -213,7 +233,7 @@ $somme8 = $stmt->fetchColumn();
                             <td><?= $user['fonctionnel'];?></td>
                             <td class="action-tab">
                                 <a href="mise_a_jour.php?code=<?= $user['code'] ?>" ><img src="./img/info.png" style="width:20px" title="Details"></a>
-                                <a onclick="return confirm('Voulez vous vraiment supprimer cette information ?')" href="supprimer.php?id=<?= $user['id'] ?>"><img src="./img/delete.png" style="width:20px;" title="supprimer"></a>
+                                <a onclick="return confirm('Voulez vous vraiment supprimer cette information ?')" href="delete_col.php?id=<?= $user['id'] ?>" ><img src="./img/delete.png" style="width:20px" title="Supprimer"></a>
                             </td>
                         </tr>
                     <?php
@@ -227,6 +247,23 @@ $somme8 = $stmt->fetchColumn();
                     ?>
                         
                 </tbody>
+                <tr>
+                    <th>Total</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><?php print_r($somme)?></td>
+                    <td><?php print_r($somme2)?></td>
+                    <td><?php print_r($somme3)?></td>
+                    <td><?php print_r($somme4)?></td>
+                    <td><?php print_r($somme5)?></td>
+                    <td><?php print_r($somme6)?></td>
+                    <td><?php print_r($somme7)?></td>
+                    <td><?php print_r($somme8)?></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
             </table>
         
         </div> 

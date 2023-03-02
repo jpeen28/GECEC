@@ -24,7 +24,7 @@ if(isset($_GET['region'])){
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/tableau.css">
-    <title>GECEC MINDDEVEL | Collecte</title>
+    <title>GECEC MINDDEVEL | historique_collecte</title>
 </head>
 
 <body class="img js-fullheight" style="background-image: url(img/img1.jpg);">
@@ -69,7 +69,7 @@ if(isset($_GET['region'])){
             <?php } ?>
             <?php if($_SESSION['user']['role']=="administrateur"){?>
             <li>
-                <a href="nouveau_oec.php">
+                <a href="nouveau_cec.php">
                     <i class='bx bx-plus'></i>
                     <span class="links_name">Nouveau OEC</span>
                 </a>
@@ -136,7 +136,7 @@ if(isset($_GET['region'])){
     </div>
     <?php if($_SESSION['user']['role']=="collecteur"){?>
     <div class="home-content ">
-       <?php
+        <?php
             if($cec = $_SESSION['user']['code']){
                 $bdd = new PDO('mysql:host=localhost;dbname=minddevel;', 'root', '');
                 $sql = $bdd->query("SELECT nom_region, datecreation, cec.code, region.code_region, localite, nbrregnais, nbrregmar, nbrregdec, nbrregpara, nbrregclot, nbractmar, nbractnai, nbractdec, fonctionnel, commentaire FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code where cec.code='$cec'");
@@ -182,6 +182,8 @@ if(isset($_GET['region'])){
                     <th scope="col">Acte Deces</th>
                     <th scope="col">Observation</th>
                     <th scope="col">Etat de Centre</th>
+                    <th scope="col">Action</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -204,9 +206,8 @@ if(isset($_GET['region'])){
                         <td><?= $user['commentaire'];?></td>
                         <td><?= $user['fonctionnel'];?></td>
                         <td class="action-tab">
-                            <a href="update.php?code=<?= $user['code'] ?>" ><img src="./img/info.png" style="width:20px" title="Details"></a>
-                            <a onclick="return confirm('Voulez vous vraiment supprimer cette information ?')" href="supprimer.php"><img src="./img/delete.png" style="width:20px;" title="supprimer"></a>
-                            <a href="modifier.php?id=<?= $user['id'] ?>" ><img src="./img/pen.png" style="width:20px" title="modifier"></a>
+                            <a href="mise_a_jour.php?code=<?= $user['code'] ?>" ><img src="./img/info.png" style="width:20px" title="Details"></a>
+                            <a href="delete_col.php?code=<?= $user['code'] ?>" ><img src="./img/delete.png" style="width:20px" title="Supprimer"></a>
                         </td>
                     </tr>
                     <?php
@@ -240,13 +241,36 @@ if(isset($_GET['region'])){
         </div> 
     </div>
 <?php }?>
-    <div class="home-content ">
-    <?php if($_SESSION['user']['role']=="administrateur")
+</div>
+<?php if($_SESSION['user']['role']=="administrateur"){?>
+<div class="home-content ">
+   <?php
     $bdd = new PDO('mysql:host=localhost;dbname=minddevel;', 'root', '');
     $sql = $bdd->query("SELECT nom_region, region.code_region, (SUM(nbrregnais)),(SUM(nbrregmar)),(SUM(nbrregdec)), (SUM(nbrregpara)), (SUM(nbrregclot)),(SUM(nbractmar)),(SUM(nbractnai)),(SUM(nbractdec)) FROM cec INNER JOIN region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code GROUP BY nom_region");
-    {?>
+    ?>
       
         <div class="title-dashboard">HISTORIQUES DE COLLECTES NATIONALES
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">GECEC MINDDEVEL</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                        <a class="nav-link active" id="nav-link" aria-current="page" href="historique_collecte.php">Historiques</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" id="nav-link" href="historique_cec.php">Historiques CEC</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" id="nav-link" href="historique_oec.php">Historiques OEC</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
         <button class='btn-print'>
             <a href="fpdf/nationale.php" id='btn-print'>Imprimer</a>
@@ -330,6 +354,93 @@ if(isset($_GET['region'])){
         </div> 
     </div>
     <?php }?>
+    <?php if($_SESSION['user']['role']=="region")
+            if($region = $_SESSION['user']['code_region'])
+            {?>
+
+<div class="home-content ">
+   <?php
+    $bdd = new PDO('mysql:host=localhost;dbname=minddevel;', 'root', '');
+    $sql = $bdd->query("SELECT departements.dept, departements.codedept,sum(nbrregnais),sum(nbrregmar),sum(nbrregdec),sum(nbrregpara),sum(nbrregclot),sum(nbractnai),sum(nbractmar),sum(nbractdec) FROM `statistique` INNER JOIN departements on departements.codedept=statistique.codedept WHERE departements.code_region='$region' GROUP BY dept");
+
+    ?>
+      
+      <div class="title-dashboard">HISTORIQUES DES COLLECTES REGION  <?php $stmt = $pdo->query("SELECT DISTINCT nom_region FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'"); $zu = $stmt->fetchColumn();print_r($zu);?> 
+        </div>
+        <button class='btn-print'>
+            <a href="fpdf/regionale.php" id='btn-print'>Imprimer</a>
+        </button>
+
+        <div class="Scroll">
+            <table class="table table-striped bg-tableau ">
+                <thead>
+                    <tr>
+                        <th scope="col">Departement</th>
+                        <th scope="col">Code departement</th>
+                        <th scope="col">Reg.Naissance</th>
+                        <th scope="col">Reg.Mariage</th>
+                        <th scope="col">Reg.Deces</th>
+                        <th scope="col">Reg.Paraphe</th>
+                        <th scope="col">Reg.Cloture</th>
+                        <th scope="col">Acte Naissance</th>
+                        <th scope="col">Acte Mariage</th>
+                        <th scope="col">Acte Deces</th>
+                        <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                  
+                    <?php
+                        if($sql->rowCount() > 0){
+                        while($user = $sql->fetch()){
+                    ?>
+                    
+                    <tr>
+                        <td><?= $user['dept'];?></td>
+                        <td><?= $user['codedept'];?></td>
+                        <td><?= $user['sum(nbrregnais)'];?></td>
+                        <td><?= $user['sum(nbrregmar)'];?></td>
+                        <td><?= $user['sum(nbrregdec)'];?></td>
+                        <td><?= $user['sum(nbrregpara)'];?></td>
+                        <td><?= $user['sum(nbrregclot)'];?></td>
+                        <td><?= $user['sum(nbractnai)'];?></td>
+                        <td><?= $user['sum(nbractmar)'];?></td>
+                        <td><?= $user['sum(nbractdec)'];?></td> 
+                        <td class="action-tab">
+                            <a  href="modifier.php?region=<?= $user['code_region'] ?>" ><img src="./img/info.png" style="width:20px" title="Details"></a>
+                        </td>
+                    </tr>
+                    
+                    <?php }
+                    
+                    }
+                    else{
+                        ?>
+                        <p>Aucun resultat trouve</p>
+                        <?php
+                        }
+                        ?>
+                </tbody>
+                
+                <tr>
+                    <th>Total</th>
+                    <td></td>
+                    <td><?php $stmt = $pdo->query("SELECT SUM(nbrregnais) FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'");$somme1 = $stmt->fetchColumn();print_r($somme1)?></td>
+                    <td><?php $stmt = $pdo->query("SELECT SUM(nbrregmar) FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'");$somme2 = $stmt->fetchColumn();print_r($somme2)?></td>
+                    <td><?php $stmt = $pdo->query("SELECT SUM(nbrregdec) FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'");$somme3 = $stmt->fetchColumn();print_r($somme3)?></td>
+                    <td><?php $stmt = $pdo->query("SELECT SUM(nbrregpara) FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'");$somme4 = $stmt->fetchColumn();print_r($somme4)?></td>
+                    <td><?php $stmt = $pdo->query("SELECT SUM(nbrregclot) FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'");$somme5 = $stmt->fetchColumn();print_r($somme5)?></td>
+                    <td><?php $stmt = $pdo->query("SELECT SUM(nbractnai) FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'");$somme6 = $stmt->fetchColumn();print_r($somme6)?></td>
+                    <td><?php $stmt = $pdo->query("SELECT SUM(nbractmar) FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'");$somme7 = $stmt->fetchColumn();print_r($somme7)?></td>
+                    <td><?php $stmt = $pdo->query("SELECT SUM(nbractdec) FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'");$somme8 = $stmt->fetchColumn();print_r($somme8)?></td>
+                    <td></td>
+                </tr>
+            </table>
+        
+        </div> 
+    </div>
+    <?php }?>
+
 
     <script>
         let btn = document.querySelector("#btn");

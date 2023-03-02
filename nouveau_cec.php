@@ -130,62 +130,40 @@ $regions = $stmt->fetchAll();
             <a href="historique_cec.php" title="Voir Historique"><img src="img/historique.png" class="img-next"></a> 
         </div>
         <div class="form-cec">
-            <form action="nouveau-check.php" method="post" class="newcec-form">
+            <form action="nouveau_cec-check.php" method="post" class="newcec-form">
                 <div class="newcec-content">
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Region</label>
                         <select name="region" id="region" onchange="getDepartement(this.value)" required class="select-cec">
                             <option value disabled selected>Selectionnez Region</option>
                             <?php foreach ($regions as $region) { ?>
-                                <option value="<?= $region['code_region'] ?>"><?= $region['FR'] ?></option>
+                                <option value="<?= $region['code_region'] ?>"><?= $region['nom_region'] ?></option>
                             <?php }?>
                         </select>
                     </div>
+
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Departement</label>
                         <select name="departement" id="departement" onchange="getCtd(this.value)" required class="select-cec">
                             <option value disabled selected>Selectionnez Departement</option>
                         </select>
                     </div>
-                </div>
-                <div class="newcec-content">
+
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Arrondissement</label>
                         <select name="ctd" id="ctd" onchange="getCec(this.value)" required class="select-cec">
                             <option value disabled selected>Selectionnez Arrondissement</option>
                         </select>
                     </div>
+                </div>
+                <div class="newcec-content">
+                  
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Centre Rattachement</label>
                         <select name="cec" id="cec" onchange="getNumero(this.value)" required class="select-cec">
                             <option value disabled selected>Selectionnez Localite</option>
                         </select>
                     </div>
-                </div>
-                <div class="newcec-content">
-                    <div class="newcec-elmt">
-                        <label for="" class="cec-elm-desc">Nom du centre</label>
-                        <input type="text" id="input-cec" name="centre" >
-                    </div>
-                    <div class="newcec-elmt">
-                        <label for="input-cec" class="cec-elm-desc">Arrete</label>
-                        <input type="file" id="input-cec" name="arrete">
-                    </div>
-                </div>
-
-                <div class="newcec-content">
-                    <div class="newcec-elmt">
-                        <label for="" class="cec-elm-desc">Date de creation</label>
-                        <input type="date" name="date" id="input-cec" class="select-cec"/>
-                    </div>
-                    <div class="newcec-elmt">
-                        <label for="" class="cec-elm-desc">Coordonnees</label>
-                        <input type="text" id="input-cec" name="coordonnees" placeholder="latitude, longitude">
-                    </div>
-                </div>
-                
-
-                <div class="newcec-content">
                     <div class="newcec-elmt">
                         <label for="" class="cec-elm-desc">Numero</label>
                         <select name="numero" id="numero" class="select-cec" onchange="getCode(this.value)"></select>
@@ -194,8 +172,33 @@ $regions = $stmt->fetchAll();
                         <label for="" class="cec-elm-desc">Nouveau Code</label>
                         <input type="text" id="code" name="coden" readonly>
                     </div>
-                </div>
 
+                </div>
+                <div class="newcec-content">
+                    <div class="newcec-elmt">
+                        <label for="" class="cec-elm-desc">Nom du centre</label>
+                        <input type="text" id="input-cec" name="centre" required>
+                    </div>
+                    <div class="newcec-elmt">
+                        <label for="input-cec" class="cec-elm-desc">Arrete</label>
+                        <input type="file" id="input-cec" name="arrete" required>
+                    </div>
+                    <div class="newcec-elmt">
+                        <label for="" class="cec-elm-desc">Date de creation</label>
+                        <input type="date" name="date" id="input-cec" class="select-cec" required>
+                    </div>
+
+                </div>
+                
+                <div class="newcec-content">
+                    
+                    <div class="newcec-elmt">
+                        <label for="" class="cec-elm-desc">Ressort Territorial</label>
+                        <textarea type="text" class="ressort" name="ressort" placeholder="Ressort territorial">
+                        </textarea>
+                    </div>
+                    
+                </div>
                 <div class="newcec-btn">
                     <input type="reset" value="Annuler" id="cec-reset">
                     <input type="submit" value="Sauvegarder" id="cec-subm" onclick="return confirm('Voulez vous vraiment sauvegarder cette information ?')">
