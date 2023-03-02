@@ -312,15 +312,15 @@ body {
 }
 /*CSS NEW CEC*/
 .form-cec{
-    width: 60vw;
-    height: 100vh;
+    width: 70vw;
+    height: 80vh;
     background-color: white;
     border-radius: 15px;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .newcec-form{
-    width: 55vw;
+
     margin: 0 auto;
     margin-top: 20px;
     padding-top: 20px;
@@ -373,6 +373,7 @@ body {
     height: 35px;
     background-color: darkorange;
     border: none;
+    cursor: pointer;
 }
 #Numero{
     width: 18vw;
@@ -385,6 +386,10 @@ body {
     height: 35px;
     padding-left: 10px;
     margin-bottom: 10px;
+}
+.ressort{
+    width: 65vw;
+    height: 16vh;
 }
 
 /* css pour details des localites*/
@@ -436,4 +441,8 @@ body {
     background-color: darkorange;
     border:none;
     cursor: pointer; 
+}
+
+#nav-link{
+    font-size: 1rem;
 }

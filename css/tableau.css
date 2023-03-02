@@ -85,12 +85,14 @@
     font-size: 1rem;
     background-color: darkorange;
     color: white;
+    margin-top: 70px;
     margin-bottom: 10px;
 }
 #btn-print{
     font-size: 1rem;
     background-color: darkorange;
     color: white;
+    
 }
 #btn-submit{
     background-color: darkorange;
