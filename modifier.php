@@ -163,6 +163,7 @@ $somme8 = $stmt->fetchColumn();
     <div class="home-content ">
         <div class="title-dashboard">HISTORIQUES DES COLLECTES REGION  <?php $stmt = $pdo->query("SELECT DISTINCT nom_region FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'"); $zu = $stmt->fetchColumn();print_r($zu);?> 
         </div>
+        <?php $stmt = $pdo->query("SELECT DISTINCT region.code_region FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'"); $ad = $stmt->fetchColumn();?> 
         <div class="search-zone">
             <form action="" class="search-oec" method='get'>
                 <div class="form-search">
@@ -186,9 +187,9 @@ $somme8 = $stmt->fetchColumn();
                 </div>
             </form>
         </div>
-
+        
         <button class='btn-print'>
-            <a href="fpdf/regionale.php?region=<?= $region?>" id='btn-print'>Imprimer</a>
+            <a href="fpdf/region.php?region=<?= $ad ?>" id='btn-print'>Imprimer</a>
         </button>
         <div class="Scroll">
             <table class="table table-striped bg-tableau ">

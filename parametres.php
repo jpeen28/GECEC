@@ -125,6 +125,7 @@ require "session.php";
     </div>
     <div class="home-content ">
         <div class="title-dashboard">Parametres de l'application</div>
+        <div class="setting"></div>
     </div>
 
     <script>

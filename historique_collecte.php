@@ -368,7 +368,7 @@ if(isset($_GET['region'])){
       <div class="title-dashboard">HISTORIQUES DES COLLECTES REGION  <?php $stmt = $pdo->query("SELECT DISTINCT nom_region FROM cec INNER JOIN  region ON cec.code_region=region.code_region INNER join statistique ON statistique.code = cec.code WHERE region.code_region ='$region'"); $zu = $stmt->fetchColumn();print_r($zu);?> 
         </div>
         <button class='btn-print'>
-            <a href="fpdf/regionale.php" id='btn-print'>Imprimer</a>
+            <a href="fpdf/regionale.php?region=<?= $region ?>" id='btn-print'>Imprimer</a>
         </button>
 
         <div class="Scroll">

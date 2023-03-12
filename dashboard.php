@@ -202,7 +202,7 @@ $sud_ou = $stmt->fetchColumn();
                             chart.draw(data, options);
                         }
                     </script>
-                    <div id="piechart_3d" style="width:48vw; height: 49vh;"></div>
+                    <div id="piechart_3d" style="width:48vw; height: 46vh;"></div>
                 </div>
 
                 <div class="act-naiss">
@@ -257,7 +257,7 @@ $sud_ou = $stmt->fetchColumn();
                         chart.draw(data, options);
                     }
                     </script>
-                    <div id="donutchart" style="width: 48vw; height: 49vh;"></div>
+                    <div id="donutchart" style="width: 48vw; height: 46vh;"></div>
                 </div>
 
            </div>
@@ -319,7 +319,7 @@ $sud_ou = $stmt->fetchColumn();
                         chart.draw(data, options);
                     }
                     </script>
-                    <div id="donut_single" style="width:48vw; height: 49vh;"></div>
+                    <div id="donut_single" style="width:48vw; height: 46vh;"></div>
             </div>
             <div class="acte-mar">
                     <?php  
@@ -372,7 +372,7 @@ $sud_ou = $stmt->fetchColumn();
                             chart.draw(data, options);
                         }
                         </script>
-                        <div id="piechart" style="width:48vw; height:49vh;"></div>
+                        <div id="piechart" style="width:48vw; height:46vh;"></div>
             </div>
            </div>
 
